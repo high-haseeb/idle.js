@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Idle.js</title>
+  </head>
+
+  <body>
+    <div id="entry"></div>
+    <script src="./idle.js"></script>
+    <script>
+      let idle = false;
+      let counter = 0;
+      const r = router({
+        "/" : () => div(
+          h1("hello world"),
+          div(a("Foo").att$("href", "#/foo")),
+          div(a("Bar").att$("href", "#/bar")),
+          div(h1(`Counter:  ${counter}`)),
+          img("notReact.png").att$("style", `background-color : ${idle ? 'red' : 'blue'};`).onclick$((e) => {
+            idle = !idle;
+            counter += 1;
+            r.refresh();
+          }),
+        ),
+        "/foo" : () => div(h1('foo'),div(a("Home").att$("href", "#/")),LOREM),
+        "/bar" : () => div(h1('bar'),div(a("Home").att$("href", "#/")),LOREM),
+      })
+      document.getElementById("entry").appendChild(r);
+    </script>
+  </body>
+</html>
